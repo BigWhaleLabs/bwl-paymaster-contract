@@ -1,4 +1,9 @@
 import { ethers, run } from 'hardhat'
+import prompt from 'prompt'
+
+const regexes = {
+  ethereumAddress: /^0x[a-fA-F0-9]{40}$/,
+}
 
 async function main() {
   const [deployer] = await ethers.getSigners()
@@ -17,12 +22,11 @@ async function main() {
   } as { [chainId: number]: string }
   const chainName = chains[chainId]
 
-  const contractName = 'MyERC721'
-  const contractSymbol = 'MYERC721'
+  const contractName = 'Paymaster'
   console.log(`Deploying ${contractName}...`)
   const Contract = await ethers.getContractFactory(contractName)
-  const contract = await Contract.deploy(contractName, contractSymbol)
-
+  const targets = ['0xCd990C45d0B794Bbb47Ad31Ee3567a36c0c872e0']
+  const contract = await Contract.deploy(targets)
   console.log('Deploy tx gas price:', contract.deployTransaction.gasPrice)
   console.log('Deploy tx gas limit:', contract.deployTransaction.gasLimit)
   await contract.deployed()
@@ -37,7 +41,7 @@ async function main() {
   try {
     await run('verify:verify', {
       address,
-      constructorArguments: [contractName, contractSymbol],
+      constructorArguments: [targets],
     })
   } catch (err) {
     console.log(
