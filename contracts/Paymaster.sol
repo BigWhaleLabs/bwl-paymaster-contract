@@ -10,7 +10,7 @@ contract Paymaster is BasePaymaster {
   event TargetAdded(address newTarget);
 
   constructor(address[] memory _targets) {
-    setTargets(_targets);
+    addTargets(_targets);
   }
 
   function versionPaymaster()
@@ -23,7 +23,7 @@ contract Paymaster is BasePaymaster {
     return "2.2.0";
   }
 
-  function setTargets(address[] memory _targets) public onlyOwner {
+  function addTargets(address[] memory _targets) public onlyOwner {
     for (uint256 i = 0; i < _targets.length; i++) {
       address _target = _targets[i];
       targets[_target] = true;
