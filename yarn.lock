@@ -39,7 +39,7 @@ __metadata:
     "@nomiclabs/hardhat-ethers": ^2.1.0
     "@nomiclabs/hardhat-etherscan": ^3.1.0
     "@nomiclabs/hardhat-waffle": ^2.0.3
-    "@opengsn/contracts": 2.2.5
+    "@opengsn/contracts": ^3.0.0-beta.1
     "@openzeppelin/contracts": ^4.7.0
     "@typechain/ethers-v5": ^10.1.0
     "@typechain/hardhat": ^6.1.2
@@ -1276,12 +1276,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opengsn/contracts@npm:2.2.5":
-  version: 2.2.5
-  resolution: "@opengsn/contracts@npm:2.2.5"
+"@opengsn/contracts@npm:^3.0.0-beta.1":
+  version: 3.0.0-beta.1
+  resolution: "@opengsn/contracts@npm:3.0.0-beta.1"
   dependencies:
     "@openzeppelin/contracts": ^4.2.0
-  checksum: a45ab9a1e67ea3b64bbf2c47f3b08a5bf2e5f8ab75ffb8e0403cdf062e21a4d5d0f959e26c2c707630cbe099993e926b8ff61c54af8aa494925757180f988e02
+  checksum: 2d7f897c00adfec0d9279a5fce8c07a13e81c35e2c1c205832eeed980e17221b6deef5e3f09ebadac7f5df0058b9232e7af29baf554490e9e86ed6e0074ff000
   languageName: node
   linkType: hard
 

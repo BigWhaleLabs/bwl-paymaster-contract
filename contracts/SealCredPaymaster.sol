@@ -60,9 +60,10 @@
 pragma solidity ^0.8.14;
 
 import "@opengsn/contracts/src/forwarder/IForwarder.sol";
-import "@opengsn/contracts/src/BasePaymaster.sol";
+import "@opengsn/contracts/src/ERC2771Recipient.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SealCredPaymaster is BasePaymaster {
+contract SealCredPaymaster is ERC2771Recipient, Ownable {
   mapping(address => bool) public targets;
 
   event TargetAdded(address newTarget);
@@ -89,27 +90,29 @@ contract SealCredPaymaster is BasePaymaster {
     }
   }
 
-  function preRelayedCall(
+  function _preRelayedCall(
     GsnTypes.RelayRequest calldata relayRequest,
     bytes calldata signature,
     bytes calldata approvalData,
     uint256 maxPossibleGas
   )
-    external
+    internal
     virtual
     override
     returns (bytes memory context, bool revertOnRecipientRevert)
   {
     (relayRequest, signature, approvalData, maxPossibleGas);
-    return ("", false);
+    require(targets[relayRequest.request.to], "wrong target");
+
+    return ("", true);
   }
 
-  function postRelayedCall(
+  function _postRelayedCall(
     bytes calldata context,
     bool success,
     uint256 gasUseWithoutPost,
     GsnTypes.RelayData calldata relayData
-  ) external virtual override {
+  ) internal virtual override {
     (context, success, gasUseWithoutPost, relayData);
   }
 }
