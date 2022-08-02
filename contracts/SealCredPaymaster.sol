@@ -78,7 +78,7 @@ contract SealCredPaymaster is BasePaymaster {
     override
     returns (string memory)
   {
-    return "3.0.0-alpha.2+opengsn.recipient.ipaymaster";
+    return "^3.0.0-beta.0";
   }
 
   function addTargets(address[] memory _targets) public onlyOwner {
