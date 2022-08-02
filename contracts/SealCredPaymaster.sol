@@ -60,10 +60,9 @@
 pragma solidity ^0.8.14;
 
 import "@opengsn/contracts/src/forwarder/IForwarder.sol";
-import "@opengsn/contracts/src/ERC2771Recipient.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@opengsn/contracts/src/BasePaymaster.sol";
 
-contract SealCredPaymaster is ERC2771Recipient, Ownable {
+contract SealCredPaymaster is BasePaymaster {
   mapping(address => bool) public targets;
 
   event TargetAdded(address newTarget);
