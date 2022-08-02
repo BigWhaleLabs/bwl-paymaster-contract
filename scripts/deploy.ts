@@ -22,7 +22,7 @@ async function main() {
   } as { [chainId: number]: string }
   const chainName = chains[chainId]
 
-  const contractName = 'Paymaster'
+  const contractName = 'SealCredPaymaster'
   console.log(`Deploying ${contractName}...`)
   const Contract = await ethers.getContractFactory(contractName)
   const targets = ['0xCd990C45d0B794Bbb47Ad31Ee3567a36c0c872e0']
