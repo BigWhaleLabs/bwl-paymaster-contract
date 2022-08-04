@@ -65,20 +65,14 @@ import "@opengsn/contracts/src/BasePaymaster.sol";
 contract SealCredPaymaster is BasePaymaster {
   mapping(address => bool) public targets;
 
-  event TargetAdded(address newTarget);
+  event TargetAdded(address target);
 
   constructor(address[] memory _targets) {
     addTargets(_targets);
   }
 
-  function versionPaymaster()
-    external
-    view
-    virtual
-    override
-    returns (string memory)
-  {
-    return "^3.0.0-beta.0";
+  function versionPaymaster() external pure override returns (string memory) {
+    return "3.0.0-beta.0";
   }
 
   function addTargets(address[] memory _targets) public onlyOwner {
@@ -96,12 +90,12 @@ contract SealCredPaymaster is BasePaymaster {
     uint256 maxPossibleGas
   )
     internal
-    virtual
+    view
     override
     returns (bytes memory context, bool revertOnRecipientRevert)
   {
     (relayRequest, signature, approvalData, maxPossibleGas);
-    require(targets[relayRequest.request.to], "wrong target");
+    require(targets[relayRequest.request.to], "Target isn't supported");
 
     return ("", true);
   }
