@@ -32,10 +32,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@big-whale-labs/constants@npm:^0.1.13":
+  version: 0.1.13
+  resolution: "@big-whale-labs/constants@npm:0.1.13"
+  checksum: 0685274267b85caf75a8921631efad85d7681074952294baff306b35bbb2405ab2623965633869fb845258e85b1dec5abe8e9de572f644e5f434bb7021337691
+  languageName: node
+  linkType: hard
+
 "@big-whale-labs/gsn-paymaster-contract@workspace:.":
   version: 0.0.0-use.local
   resolution: "@big-whale-labs/gsn-paymaster-contract@workspace:."
   dependencies:
+    "@big-whale-labs/constants": ^0.1.13
     "@nomiclabs/hardhat-ethers": ^2.1.0
     "@nomiclabs/hardhat-etherscan": ^3.1.0
     "@nomiclabs/hardhat-waffle": ^2.0.3
