@@ -105,7 +105,7 @@ contract SealCredPaymaster is BasePaymaster {
     bool success,
     uint256 gasUseWithoutPost,
     GsnTypes.RelayData calldata relayData
-  ) internal virtual override {
+  ) internal pure override {
     (context, success, gasUseWithoutPost, relayData);
   }
 }
