@@ -63,9 +63,11 @@ import "@opengsn/contracts/src/forwarder/IForwarder.sol";
 import "@opengsn/contracts/src/BasePaymaster.sol";
 
 contract SealCredPaymaster is BasePaymaster {
-  mapping(address => bool) public targets;
-
+  // Events
   event TargetAdded(address target);
+
+  // State
+  mapping(address => bool) public targets;
 
   constructor(address[] memory _targets) {
     addTargets(_targets);
@@ -83,20 +85,25 @@ contract SealCredPaymaster is BasePaymaster {
     }
   }
 
+  function removeTargets(address[] memory _targets) public onlyOwner {
+    for (uint256 i = 0; i < _targets.length; i++) {
+      address _target = _targets[i];
+      targets[_target] = false;
+    }
+  }
+
   function _preRelayedCall(
     GsnTypes.RelayRequest calldata relayRequest,
-    bytes calldata signature,
-    bytes calldata approvalData,
-    uint256 maxPossibleGas
+    bytes calldata,
+    bytes calldata,
+    uint256
   )
     internal
     view
     override
     returns (bytes memory context, bool revertOnRecipientRevert)
   {
-    (relayRequest, signature, approvalData, maxPossibleGas);
     require(targets[relayRequest.request.to], "Target isn't supported");
-
     return ("", true);
   }
 
@@ -105,7 +112,5 @@ contract SealCredPaymaster is BasePaymaster {
     bool success,
     uint256 gasUseWithoutPost,
     GsnTypes.RelayData calldata relayData
-  ) internal pure override {
-    (context, success, gasUseWithoutPost, relayData);
-  }
+  ) internal pure override {}
 }
