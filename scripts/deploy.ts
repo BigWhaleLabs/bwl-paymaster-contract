@@ -1,5 +1,7 @@
 import {
   EXTERNAL_SC_ERC721_LEDGER_CONTRACT_ADDRESS,
+  GSN_FORWARDER_CONTRACT_ADDRESS,
+  GSN_RELAY_HUB_CONTRACT_ADDRESS,
   SC_EMAIL_LEDGER_CONTRACT_ADDRESS,
   SC_EMAIL_POSTS_CONTRACT_ADDRESS,
   SC_ERC721_LEDGER_CONTRACT_ADDRESS,
@@ -48,6 +50,9 @@ async function main() {
   )
   await contract.deployed()
   const address = contract.address
+  console.log('Setting relay hub and trusted forwarder...')
+  await contract.setRelayHub(GSN_RELAY_HUB_CONTRACT_ADDRESS)
+  await contract.setTrustedForwarder(GSN_FORWARDER_CONTRACT_ADDRESS)
 
   console.log('Contract deployed to:', address)
   console.log('Wait for 1 minute to make sure blockchain is updated')
