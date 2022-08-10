@@ -60,7 +60,7 @@
 pragma solidity ^0.8.14;
 
 import "@opengsn/contracts/src/forwarder/IForwarder.sol";
-import "@opengsn/contracts/src/BasePaymaster.sol";
+import "./BasePaymaster.sol";
 
 contract SealCredPaymaster is BasePaymaster {
   // Events
@@ -94,34 +94,6 @@ contract SealCredPaymaster is BasePaymaster {
       address _target = _targets[i];
       targets[_target] = false;
     }
-  }
-
-  function setGasAndDataLimits(
-    uint256 _sCPreRelayedCallGasLimit,
-    uint256 _sCPostRelayedCallGasLimit,
-    uint256 _sCPaymasterAcceptanceBudget,
-    uint256 _sCCalldataSizeLimit
-  ) public onlyOwner {
-    sCPreRelayedCallGasLimit = _sCPreRelayedCallGasLimit;
-    sCPostRelayedCallGasLimit = _sCPostRelayedCallGasLimit;
-    sCPaymasterAcceptanceBudget = _sCPaymasterAcceptanceBudget;
-    sCCalldataSizeLimit = _sCCalldataSizeLimit;
-  }
-
-  function getGasAndDataLimits()
-    public
-    view
-    virtual
-    override
-    returns (IPaymaster.GasAndDataLimits memory limits)
-  {
-    return
-      IPaymaster.GasAndDataLimits(
-        sCPaymasterAcceptanceBudget,
-        sCPostRelayedCallGasLimit,
-        sCPostRelayedCallGasLimit,
-        sCCalldataSizeLimit
-      );
   }
 
   function _preRelayedCall(
