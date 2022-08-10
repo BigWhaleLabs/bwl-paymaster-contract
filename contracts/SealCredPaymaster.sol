@@ -108,6 +108,22 @@ contract SealCredPaymaster is BasePaymaster {
     sCCalldataSizeLimit = _sCCalldataSizeLimit;
   }
 
+  function getGasAndDataLimits()
+    public
+    view
+    virtual
+    override
+    returns (IPaymaster.GasAndDataLimits memory limits)
+  {
+    return
+      IPaymaster.GasAndDataLimits(
+        sCPaymasterAcceptanceBudget,
+        sCPostRelayedCallGasLimit,
+        sCPostRelayedCallGasLimit,
+        sCCalldataSizeLimit
+      );
+  }
+
   function _preRelayedCall(
     GsnTypes.RelayRequest calldata relayRequest,
     bytes calldata,
