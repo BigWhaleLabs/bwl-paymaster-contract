@@ -68,6 +68,10 @@ contract SealCredPaymaster is BasePaymaster {
 
   // State
   mapping(address => bool) public targets;
+  uint256 public sCPreRelayedCallGasLimit = 500000;
+  uint256 public sCPostRelayedCallGasLimit = 510000;
+  uint256 public sCPaymasterAcceptanceBudget = 50000;
+  uint256 public sCCalldataSizeLimit = 20500;
 
   constructor(address[] memory _targets) {
     addTargets(_targets);
@@ -90,6 +94,18 @@ contract SealCredPaymaster is BasePaymaster {
       address _target = _targets[i];
       targets[_target] = false;
     }
+  }
+
+  function setGasAndDataLimits(
+    uint256 _sCPreRelayedCallGasLimit,
+    uint256 _sCPostRelayedCallGasLimit,
+    uint256 _sCPaymasterAcceptanceBudget,
+    uint256 _sCCalldataSizeLimit
+  ) public onlyOwner {
+    sCPreRelayedCallGasLimit = _sCPreRelayedCallGasLimit;
+    sCPostRelayedCallGasLimit = _sCPostRelayedCallGasLimit;
+    sCPaymasterAcceptanceBudget = _sCPaymasterAcceptanceBudget;
+    sCCalldataSizeLimit = _sCCalldataSizeLimit;
   }
 
   function _preRelayedCall(
