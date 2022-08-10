@@ -68,10 +68,6 @@ contract SealCredPaymaster is BasePaymaster {
 
   // State
   mapping(address => bool) public targets;
-  uint256 public sCPreRelayedCallGasLimit = 500000;
-  uint256 public sCPostRelayedCallGasLimit = 510000;
-  uint256 public sCPaymasterAcceptanceBudget = 50000;
-  uint256 public sCCalldataSizeLimit = 20500;
 
   constructor(address[] memory _targets) {
     addTargets(_targets);

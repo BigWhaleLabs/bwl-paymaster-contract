@@ -33,11 +33,11 @@ abstract contract BasePaymaster is IPaymaster, Ownable, ERC165 {
   uint256 public forwarderHubOverhead = 50000;
 
   //These parameters are documented in IPaymaster.GasAndDataLimits
-  uint256 public preRelayedCallGasLimit = 100000;
-  uint256 public postRelayedCallGasLimit = 110000;
+  uint256 public preRelayedCallGasLimit = 500000;
+  uint256 public postRelayedCallGasLimit = 510000;
   uint256 public paymasterAcceptanceBudget =
     preRelayedCallGasLimit + forwarderHubOverhead;
-  uint256 public calldataSizeLimit = 10500;
+  uint256 public calldataSizeLimit = 20500;
 
   /// @inheritdoc IERC165
   function supportsInterface(bytes4 interfaceId)
@@ -57,7 +57,6 @@ abstract contract BasePaymaster is IPaymaster, Ownable, ERC165 {
   function getGasAndDataLimits()
     public
     view
-    virtual
     override
     returns (IPaymaster.GasAndDataLimits memory limits)
   {
