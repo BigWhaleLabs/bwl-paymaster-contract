@@ -69,10 +69,6 @@ contract SealCredPaymaster is BasePaymaster {
   // State
   mapping(address => bool) public targets;
   string public version = "3.0.0-beta.0";
-  uint256 public forwarderHubOverhead = 50000;
-  uint256 public preRelayedCallGasLimit = 500000;
-  uint256 public postRelayedCallGasLimit = 510000;
-  uint256 public calldataSizeLimit = 20500;
 
   constructor(address[] memory _targets) {
     addTargets(_targets);
@@ -80,33 +76,6 @@ contract SealCredPaymaster is BasePaymaster {
 
   function setVersion(string memory _version) public onlyOwner {
     version = _version;
-  }
-
-  function setGasAndDataLimits(
-    uint256 _forwarderHubOverhead,
-    uint256 _preRelayedCallGasLimit,
-    uint256 _postRelayedCallGasLimit,
-    uint256 _calldataSizeLimit
-  ) public onlyOwner {
-    forwarderHubOverhead = _forwarderHubOverhead;
-    preRelayedCallGasLimit = _preRelayedCallGasLimit;
-    postRelayedCallGasLimit = _postRelayedCallGasLimit;
-    calldataSizeLimit = _calldataSizeLimit;
-  }
-
-  function getGasAndDataLimits()
-    public
-    view
-    override
-    returns (IPaymaster.GasAndDataLimits memory limits)
-  {
-    return
-      IPaymaster.GasAndDataLimits(
-        preRelayedCallGasLimit + forwarderHubOverhead,
-        preRelayedCallGasLimit,
-        postRelayedCallGasLimit,
-        calldataSizeLimit
-      );
   }
 
   function addTargets(address[] memory _targets) public onlyOwner {
