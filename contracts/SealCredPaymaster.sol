@@ -68,13 +68,47 @@ contract SealCredPaymaster is BasePaymaster {
 
   // State
   mapping(address => bool) public targets;
+  string public version = "3.0.0-beta.0";
+  uint256 public forwarderHubOverhead = 50000;
+  uint256 public preRelayedCallGasLimit = 500000;
+  uint256 public postRelayedCallGasLimit = 510000;
+  uint256 public paymasterAcceptanceBudget =
+    preRelayedCallGasLimit + forwarderHubOverhead;
+  uint256 public calldataSizeLimit = 20500;
 
   constructor(address[] memory _targets) {
     addTargets(_targets);
   }
 
-  function versionPaymaster() external pure override returns (string memory) {
-    return "3.0.0-beta.0";
+  function setVersion(string memory _version) public {
+    version = _version;
+  }
+
+  function setGasAndDataLimits(
+    uint256 _preRelayedCallGasLimit,
+    uint256 _postRelayedCallGasLimit,
+    uint256 _paymasterAcceptanceBudget,
+    uint256 _calldataSizeLimit
+  ) public onlyOwner {
+    preRelayedCallGasLimit = _preRelayedCallGasLimit;
+    postRelayedCallGasLimit = _postRelayedCallGasLimit;
+    paymasterAcceptanceBudget = _paymasterAcceptanceBudget;
+    calldataSizeLimit = _calldataSizeLimit;
+  }
+
+  function getGasAndDataLimits()
+    public
+    view
+    override
+    returns (IPaymaster.GasAndDataLimits memory limits)
+  {
+    return
+      IPaymaster.GasAndDataLimits(
+        paymasterAcceptanceBudget,
+        preRelayedCallGasLimit,
+        postRelayedCallGasLimit,
+        calldataSizeLimit
+      );
   }
 
   function addTargets(address[] memory _targets) public onlyOwner {
@@ -113,4 +147,8 @@ contract SealCredPaymaster is BasePaymaster {
     uint256 gasUseWithoutPost,
     GsnTypes.RelayData calldata relayData
   ) internal pure override {}
+
+  function versionPaymaster() external view override returns (string memory) {
+    return version;
+  }
 }
