@@ -80,7 +80,7 @@ contract SealCredPaymaster is BasePaymaster {
     addTargets(_targets);
   }
 
-  function setVersion(string memory _version) public {
+  function setVersion(string memory _version) public onlyOwner {
     version = _version;
   }
 
