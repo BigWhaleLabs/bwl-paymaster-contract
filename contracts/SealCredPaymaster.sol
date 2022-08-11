@@ -72,8 +72,6 @@ contract SealCredPaymaster is BasePaymaster {
   uint256 public forwarderHubOverhead = 50000;
   uint256 public preRelayedCallGasLimit = 500000;
   uint256 public postRelayedCallGasLimit = 510000;
-  uint256 public paymasterAcceptanceBudget =
-    preRelayedCallGasLimit + forwarderHubOverhead;
   uint256 public calldataSizeLimit = 20500;
 
   constructor(address[] memory _targets) {
@@ -85,14 +83,14 @@ contract SealCredPaymaster is BasePaymaster {
   }
 
   function setGasAndDataLimits(
+    uint256 _forwarderHubOverhead,
     uint256 _preRelayedCallGasLimit,
     uint256 _postRelayedCallGasLimit,
-    uint256 _paymasterAcceptanceBudget,
     uint256 _calldataSizeLimit
   ) public onlyOwner {
+    forwarderHubOverhead = _forwarderHubOverhead;
     preRelayedCallGasLimit = _preRelayedCallGasLimit;
     postRelayedCallGasLimit = _postRelayedCallGasLimit;
-    paymasterAcceptanceBudget = _paymasterAcceptanceBudget;
     calldataSizeLimit = _calldataSizeLimit;
   }
 
@@ -104,7 +102,7 @@ contract SealCredPaymaster is BasePaymaster {
   {
     return
       IPaymaster.GasAndDataLimits(
-        paymasterAcceptanceBudget,
+        preRelayedCallGasLimit + forwarderHubOverhead,
         preRelayedCallGasLimit,
         postRelayedCallGasLimit,
         calldataSizeLimit
