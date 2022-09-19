@@ -68,7 +68,7 @@ contract SealCredPaymaster is BasePaymaster {
 
   // State
   mapping(address => bool) public targets;
-  string public version = "3.0.0-beta.0";
+  string public version = "3.0.0-beta.2";
 
   constructor(address[] memory _targets) {
     addTargets(_targets);
