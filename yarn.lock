@@ -44,6 +44,7 @@ __metadata:
   resolution: "@big-whale-labs/gsn-paymaster-contract@workspace:."
   dependencies:
     "@big-whale-labs/constants": ^0.1.30
+    "@ethersproject/providers": ^5.7.1
     "@nomiclabs/hardhat-ethers": ^2.1.1
     "@nomiclabs/hardhat-etherscan": ^3.1.0
     "@nomiclabs/hardhat-waffle": ^2.0.3
@@ -705,7 +706,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/providers@npm:5.7.1":
+"@ethersproject/providers@npm:5.7.1, @ethersproject/providers@npm:^5.7.1":
   version: 5.7.1
   resolution: "@ethersproject/providers@npm:5.7.1"
   dependencies:
