@@ -32,10 +32,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@big-whale-labs/constants@npm:^0.1.30":
-  version: 0.1.30
-  resolution: "@big-whale-labs/constants@npm:0.1.30"
-  checksum: 96e126edae6fe400386ae15465fe09aad4c4a1c11ebb360e840eb989ebaeec66ecda029cea950d6d57643c519ceb20239d28be74d6951b79cc22f60727947b5a
+"@big-whale-labs/constants@npm:^0.1.36":
+  version: 0.1.36
+  resolution: "@big-whale-labs/constants@npm:0.1.36"
+  checksum: 33c9e312045d1e758b2c6a3ac7846cd1d63daacf6c8cc4dfb640a99c764c71535ac18ddc967f5833ba37dd28be898d5f0c72cd630a59c97c3135d57538b84f42
   languageName: node
   linkType: hard
 
@@ -43,7 +43,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@big-whale-labs/gsn-paymaster-contract@workspace:."
   dependencies:
-    "@big-whale-labs/constants": ^0.1.30
+    "@big-whale-labs/constants": ^0.1.36
     "@ethersproject/providers": ^5.7.1
     "@nomiclabs/hardhat-ethers": ^2.1.1
     "@nomiclabs/hardhat-etherscan": ^3.1.0
