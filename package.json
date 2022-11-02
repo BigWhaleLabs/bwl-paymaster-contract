@@ -29,7 +29,7 @@
     "prettify": "prettier --write ."
   },
   "devDependencies": {
-    "@big-whale-labs/constants": "^0.1.36",
+    "@big-whale-labs/constants": "^0.1.37",
     "@ethersproject/providers": "^5.7.1",
     "@nomiclabs/hardhat-ethers": "^2.1.1",
     "@nomiclabs/hardhat-etherscan": "^3.1.0",

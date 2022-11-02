@@ -48,15 +48,11 @@ async function main() {
   )
   console.log('Deploy tx gas limit:', formatEther(deployTransaction.gasLimit))
   await contract.deployed()
-  console.log('Setting relay hub and trusted forwarder...')
-  await setRelayHub(GSN_RELAY_HUB_CONTRACT_ADDRESS)
-  await setTrustedForwarder(GSN_FORWARDER_CONTRACT_ADDRESS)
 
   console.log('Contract deployed to:', address)
   console.log('Wait for 1 minute to make sure blockchain is updated')
   await new Promise((resolve) => setTimeout(resolve, 60 * 1000))
 
-  // Try to verify the contract on Etherscan
   console.log('Verifying contract on Etherscan')
   try {
     await run('verify:verify', {
@@ -70,7 +66,17 @@ async function main() {
     )
   }
 
-  // Print out the information
+  console.log('Setting relay hub and trusted forwarder...')
+  try {
+    await setRelayHub(GSN_RELAY_HUB_CONTRACT_ADDRESS)
+    await setTrustedForwarder(GSN_FORWARDER_CONTRACT_ADDRESS)
+  } catch (err) {
+    console.log(
+      'Error setting relay hub or trusted forwarder for contract:',
+      err instanceof Error ? err.message : err
+    )
+  }
+
   console.log(`${contractName} deployed and verified on Etherscan!`)
   console.log('Contract address:', address)
   console.log(
