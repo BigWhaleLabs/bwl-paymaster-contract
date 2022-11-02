@@ -61,7 +61,7 @@ async function main() {
     })
   } catch (err) {
     console.log(
-      'Error verifiying contract on Etherscan:',
+      'Error verifying contract on Etherscan:',
       err instanceof Error ? err.message : err
     )
   }
@@ -72,7 +72,7 @@ async function main() {
     await setTrustedForwarder(GSN_FORWARDER_CONTRACT_ADDRESS)
   } catch (err) {
     console.log(
-      'Error setting relay hub or trusted forwarder for contract:',
+      'Error setting relay hub or trusted forwarder for contract, check the RelayHub version:',
       err instanceof Error ? err.message : err
     )
   }
