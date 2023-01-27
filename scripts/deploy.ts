@@ -12,6 +12,11 @@ import { ethers, run } from 'hardhat'
 import { utils } from 'ethers'
 
 const { formatEther } = utils
+const TARGETS = [
+  '0xf6605a714d18f55687f8b50683b2ed054425a5db',
+  '0x69249cc5bef51041248107135c89e2f0db08bf9f',
+  '0x558fff0c9e265f807b05f7ff5da33c8e2031fe6e',
+]
 
 async function main() {
   const [deployer] = await ethers.getSigners()
@@ -39,8 +44,13 @@ async function main() {
     SC_EXTERNAL_ERC721_POSTS_CONTRACT_ADDRESS,
   ]
   const contract = await Contract.deploy(targets)
-  const { address, setRelayHub, setTrustedForwarder, deployTransaction } =
-    contract
+  const {
+    address,
+    setRelayHub,
+    setTrustedForwarder,
+    deployTransaction,
+    addTargets,
+  } = contract
   console.log(`Deploying to ${address} on ${chainName}...`)
   console.log(
     'Deploy tx gas price:',
@@ -70,6 +80,7 @@ async function main() {
   try {
     await setRelayHub(GSN_RELAY_HUB_CONTRACT_ADDRESS)
     await setTrustedForwarder(GSN_FORWARDER_CONTRACT_ADDRESS)
+    await addTargets(TARGETS)
   } catch (err) {
     console.log(
       'Error setting relay hub or trusted forwarder for contract, check the RelayHub version:',
