@@ -17,6 +17,22 @@ import { utils } from 'ethers'
 
 const { formatEther } = utils
 
+const polygonChain = {
+  137: 'polygon-mainnet',
+  80001: 'mumbai',
+}
+
+function buildEtherscanURL(
+  chainName: string,
+  chainId: number,
+  address: string
+): string {
+  const subdomain = chainName.includes('mainnet') ? `${chainName}.` : ''
+  const domain = polygonChain[chainId] ? 'polygonscan.com' : 'etherscan.io'
+
+  return `https://${subdomain}${domain}/address/${address}`
+}
+
 async function main() {
   const [deployer] = await ethers.getSigners()
   console.log('Deploying contracts with the account:', deployer.address)
@@ -28,7 +44,7 @@ async function main() {
     3: 'ropsten',
     4: 'rinkeby',
     5: 'goerli',
-    80001: 'mumbai',
+    ...polygonChain,
   } as { [chainId: number]: string }
   const chainName = chains[chainId]
 
@@ -90,12 +106,7 @@ async function main() {
 
   console.log(`${contractName} deployed and verified on Etherscan!`)
   console.log('Contract address:', address)
-  console.log(
-    'Etherscan URL:',
-    `https://${chainName !== 'mainnet' ? `${chainName}.` : ''}${
-      chainId === 80001 ? 'polygonscan.com' : 'etherscan.io'
-    }/address/${address}`
-  )
+  console.log('Etherscan URL:', buildEtherscanURL(chainName, chainId, address))
 }
 
 main().catch((error) => {
