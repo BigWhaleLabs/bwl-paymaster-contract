@@ -46,6 +46,7 @@ const config: HardhatUserConfig = {
   networks: {
     deploy: {
       url: ETH_RPC,
+      //       url: 'https://polygon-mumbai.infura.io/v3/f605b671970744d3a688de67dc8c2323',
       accounts: [CONTRACT_OWNER_PRIVATE_KEY],
     },
     local: {

@@ -32,10 +32,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@big-whale-labs/constants@npm:^0.1.39":
-  version: 0.1.39
-  resolution: "@big-whale-labs/constants@npm:0.1.39"
-  checksum: 69807bda7e9ffb4561d1adb9fb62d34257b3099c1d52131adc55e4b10a859135200bc22ce8a80bce28a584ebba76e4c4f6254988415fbbddb8ad8cb20573b742
+"@big-whale-labs/constants@npm:^0.1.73":
+  version: 0.1.73
+  resolution: "@big-whale-labs/constants@npm:0.1.73"
+  checksum: 4ef845aa29b362748c6de31077d788c45fd2b38e2144d95e221ddc449776bbc4df085ea500d172ffc4048d7a42f8c8839017797a6d286411c025f7d467be9ea8
   languageName: node
   linkType: hard
 
@@ -43,12 +43,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@big-whale-labs/gsn-paymaster-contract@workspace:."
   dependencies:
-    "@big-whale-labs/constants": ^0.1.39
+    "@big-whale-labs/constants": ^0.1.73
     "@ethersproject/providers": ^5.7.2
     "@nomiclabs/hardhat-ethers": ^2.2.1
     "@nomiclabs/hardhat-etherscan": ^3.1.2
     "@nomiclabs/hardhat-waffle": ^2.0.3
-    "@opengsn/contracts": ^3.0.0-beta.1
+    "@opengsn/contracts": ^3.0.0-beta.3
     "@openzeppelin/contracts": ^4.8.0
     "@typechain/ethers-v5": ^10.1.1
     "@typechain/hardhat": ^6.1.4
@@ -1481,13 +1481,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opengsn/contracts@npm:^3.0.0-beta.1":
-  version: 3.0.0-beta.2
-  resolution: "@opengsn/contracts@npm:3.0.0-beta.2"
+"@opengsn/contracts@npm:^3.0.0-beta.3":
+  version: 3.0.0-beta.3
+  resolution: "@opengsn/contracts@npm:3.0.0-beta.3"
   dependencies:
     "@openzeppelin/contracts": ^4.2.0
     web3-eth-contract: ^1.7.4
-  checksum: c44562d4d34b32b31755c2d18fe380584d23618d8d280fb47c9e20c053d0e479274aa3026628575ddf64eaba398c021961c429d940c9cb4cfc801534fdf517b2
+  checksum: 865342da21f9fe82c9cf6844c4380edd9929df43f2597f9ce27dac363012903ec3bac126ad29f94555311b83641b331ee83db038a55d57881ab3ad1e0d185528
   languageName: node
   linkType: hard
 
