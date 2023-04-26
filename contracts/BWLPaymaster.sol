@@ -62,13 +62,13 @@ pragma solidity ^0.8.14;
 import "@opengsn/contracts/src/forwarder/IForwarder.sol";
 import "@opengsn/contracts/src/BasePaymaster.sol";
 
-contract SealCredPaymaster is BasePaymaster {
+contract BWLPaymaster is BasePaymaster {
   // Events
   event TargetAdded(address target);
 
   // State
   mapping(address => bool) public targets;
-  string public version = "3.0.0-beta.2";
+  string public version = "3.0.0-beta.3";
 
   constructor(address[] memory _targets) {
     addTargets(_targets);

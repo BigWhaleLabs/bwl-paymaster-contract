@@ -1,22 +1,37 @@
 import {
   GSN_FORWARDER_CONTRACT_ADDRESS,
   GSN_RELAY_HUB_CONTRACT_ADDRESS,
+  METADATA_LEDGER_CONTRACT_ADDRESS,
   SC_EMAIL_LEDGER_CONTRACT_ADDRESS,
   SC_EMAIL_POSTS_CONTRACT_ADDRESS,
   SC_ERC721_LEDGER_CONTRACT_ADDRESS,
   SC_ERC721_POSTS_CONTRACT_ADDRESS,
   SC_EXTERNAL_ERC721_LEDGER_CONTRACT_ADDRESS,
   SC_EXTERNAL_ERC721_POSTS_CONTRACT_ADDRESS,
+  SC_FARCASTER_LEDGER_CONTRACT_ADDRESS,
+  SC_FARCASTER_POSTS_CONTRACT_ADDRESS,
+  SEAL_HUB_CONTRACT_ADDRESS,
 } from '@big-whale-labs/constants'
 import { ethers, run } from 'hardhat'
 import { utils } from 'ethers'
 
 const { formatEther } = utils
-const TARGETS = [
-  '0xf6605a714d18f55687f8b50683b2ed054425a5db',
-  '0x69249cc5bef51041248107135c89e2f0db08bf9f',
-  '0x558fff0c9e265f807b05f7ff5da33c8e2031fe6e',
-]
+
+const polygonChain = {
+  137: 'polygon mainnet',
+  80001: 'mumbai',
+}
+
+function buildEtherscanURL(
+  chainName: string,
+  chainId: number,
+  address: string
+): string {
+  const subdomain = chainName.includes('mainnet') ? `${chainName}.` : ''
+  const domain = polygonChain[chainId] ? 'polygonscan.com' : 'etherscan.io'
+
+  return `https://${subdomain}${domain}/address/${address}`
+}
 
 async function main() {
   const [deployer] = await ethers.getSigners()
@@ -29,28 +44,30 @@ async function main() {
     3: 'ropsten',
     4: 'rinkeby',
     5: 'goerli',
+    ...polygonChain,
   } as { [chainId: number]: string }
   const chainName = chains[chainId]
 
-  const contractName = 'SealCredPaymaster'
+  const contractName = 'BWLPaymaster'
   console.log(`Deploying ${contractName}...`)
   const Contract = await ethers.getContractFactory(contractName)
   const targets = [
     SC_EMAIL_LEDGER_CONTRACT_ADDRESS,
     SC_EMAIL_POSTS_CONTRACT_ADDRESS,
     SC_ERC721_LEDGER_CONTRACT_ADDRESS,
+    SC_FARCASTER_LEDGER_CONTRACT_ADDRESS,
+
     SC_ERC721_POSTS_CONTRACT_ADDRESS,
     SC_EXTERNAL_ERC721_LEDGER_CONTRACT_ADDRESS,
     SC_EXTERNAL_ERC721_POSTS_CONTRACT_ADDRESS,
+    SC_FARCASTER_POSTS_CONTRACT_ADDRESS,
+
+    METADATA_LEDGER_CONTRACT_ADDRESS,
+    SEAL_HUB_CONTRACT_ADDRESS,
   ]
   const contract = await Contract.deploy(targets)
-  const {
-    address,
-    setRelayHub,
-    setTrustedForwarder,
-    deployTransaction,
-    addTargets,
-  } = contract
+  const { address, setRelayHub, setTrustedForwarder, deployTransaction } =
+    contract
   console.log(`Deploying to ${address} on ${chainName}...`)
   console.log(
     'Deploy tx gas price:',
@@ -80,7 +97,6 @@ async function main() {
   try {
     await setRelayHub(GSN_RELAY_HUB_CONTRACT_ADDRESS)
     await setTrustedForwarder(GSN_FORWARDER_CONTRACT_ADDRESS)
-    await addTargets(TARGETS)
   } catch (err) {
     console.log(
       'Error setting relay hub or trusted forwarder for contract, check the RelayHub version:',
@@ -90,12 +106,7 @@ async function main() {
 
   console.log(`${contractName} deployed and verified on Etherscan!`)
   console.log('Contract address:', address)
-  console.log(
-    'Etherscan URL:',
-    `https://${
-      chainName !== 'mainnet' ? `${chainName}.` : ''
-    }etherscan.io/address/${address}`
-  )
+  console.log('Etherscan URL:', buildEtherscanURL(chainName, chainId, address))
 }
 
 main().catch((error) => {
