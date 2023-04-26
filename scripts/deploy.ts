@@ -18,7 +18,7 @@ import { utils } from 'ethers'
 const { formatEther } = utils
 
 const polygonChain = {
-  137: 'polygon-mainnet',
+  137: 'polygon mainnet',
   80001: 'mumbai',
 }
 
