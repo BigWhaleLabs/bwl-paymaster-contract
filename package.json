@@ -28,7 +28,7 @@
     "eth-lint": "yarn solhint 'contracts/**/*.sol'",
     "lint": "prettier --check . && eslint --max-warnings 0 --ext ts scripts test && yarn eth-lint",
     "prettify": "prettier --write .",
-    "release": "np --any-branch"
+    "release": "yarn build && np --any-branch"
   },
   "devDependencies": {
     "@big-whale-labs/constants": "^0.1.73",
