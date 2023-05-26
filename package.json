@@ -14,12 +14,13 @@
     "yarn": false
   },
   "files": [
-    "dist/typechain/**/*"
+    "dist/typechain/**/*",
+    "contracts/*.sol"
   ],
   "main": "dist/typechain/index.js",
   "types": "dist/typechain/index.d.ts",
   "scripts": {
-    "build": "yarn clean-cache && yarn hardhat compile",
+    "build": "yarn clean-cache && yarn hardhat compile && yarn tsc --skipLibCheck",
     "clean-cache": "yarn hardhat clean",
     "test": "NODE_ENV=test yarn hardhat test",
     "coverage": "yarn hardhat compile --force && node --max_old_space_size=6144 node_modules/.bin/hardhat coverage --testfiles 'test/**/*.ts' --show-stack-traces",
@@ -27,7 +28,7 @@
     "eth-lint": "yarn solhint 'contracts/**/*.sol'",
     "lint": "prettier --check . && eslint --max-warnings 0 --ext ts scripts test && yarn eth-lint",
     "prettify": "prettier --write .",
-    "release": "yarn np --any-branch"
+    "release": "np --any-branch"
   },
   "devDependencies": {
     "@big-whale-labs/constants": "^0.1.73",
